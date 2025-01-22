@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ton per hour calculator</title>
+    <title>Ton per Hour Calculator</title>
     <link rel="stylesheet" href="/static/base.css">
     <script src="/static/base.js" defer></script>
-~
 </head>
 <body>
     <div class="banner">
@@ -13,17 +12,31 @@
     </div>
     <div class="input">
         <form>
-            <input type="number" class="1" placeholder="Amount">
-            <input type="number" class="1" placeholder="Size">
-            <input type="number" class="1" placeholder="Duration in Months">
-            <input type="number" class="1" placeholder="Shift in Hour">
-            <input type="number" class="1" placeholder="Number of Working Days">
-            <input type="button" class="3" placeholder="Submit">
-        </form>
-    </div>
-    <div class="output">
-        <form>
-            <input type="number" class="2" placeholder="TON PER HOUR CALCULATOR">
+            <table id="calculationTable" border="1">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Size</th>
+                        <th>Duration (Months)</th>
+                        <th>Shift (Hours)</th>
+                        <th>Working Days</th>
+                        <th>Ton Per Hour</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" class="amount" placeholder="Amount"></td>
+                        <td><input type="number" class="size" placeholder="Size"></td>
+                        <td><input type="number" class="months" placeholder="Duration in Months"></td>
+                        <td><input type="number" class="shift" placeholder="Shift in Hour"></td>
+                        <td><input type="number" class="days" placeholder="Number of Working Days"></td>
+                        <td><input type="number" class="ton-per-hour" placeholder="TON PER HOUR" readonly></td>
+                        <td><button type="button" class="calculate">Calculate</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" id="addRow">Add New Row</button>
         </form>
     </div>
 </body>

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -9,7 +10,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Helper function
-def calculator(amount: float, months: int, shift: float, total_days: int) -> int:
+def calculator(amount: float, months: int, shift: float, total_days: int) -> float:
     return amount / (months * shift * total_days)
 
 # Redirect to the home endpoint
@@ -26,9 +27,16 @@ async def serve_html_page():
 @app.get('/home/{amount}/{size}/{months}/{shift}/{days}')
 async def calculation(amount: float, size: int, months: int, shift: int, days: int):
     try:
-        global Size
-        Size = size
         ton_per_day = calculator(amount, months, shift, days)
-        return {"ton_per_day": ton_per_day}
-    except HTTPException:
-        return {"error": "Something went wrong"}
+        return {"ton_per_day": ton_per_day, "size": size}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error: {str(e)}")
+
+if __name__ == "__main__":
+    import uvicorn
+
+    # Get the port from the environment variable, default to 8000
+    port = int(os.getenv("PORT", 8000))
+
+    # Run the FastAPI app with Uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=port)
